@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'MriSoftware/css/bootstrap.css' %}">
+
+</head>
+
+
+<body>
+<header class="d-flex justify-content-center py-3 bg-black">
+    <ul class="nav nav-pills">
+        <li class="nav-item"><a href="{% url 'start' %}" class="nav-link" aria-current="page">Запуск</a></li>
+        <li class="nav-item"><a href="{%  url 'profile' %}" class="nav-link">Личный кабинет</a></li>
+        <li class="nav-item"><a href="{% url 'about' %}" class="nav-link">Про нас</a></li>
+    </ul>
+</header>
+{% block main %}
+{% endblock %}
+</body>
+
+</html>

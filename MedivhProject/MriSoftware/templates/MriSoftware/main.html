@@ -1,0 +1,193 @@
+{% extends 'MriSoftware/base.html' %}
+{% load static %}
+{% block main %}
+    <main class="container-fluid">
+        <div class="row row-cols-2">
+            <div class="col-8">
+                <div class="col" style="display: flex; flex-direction: column; justify-content: center">
+                    <div class="row">
+                        <img src="/static/MriSoftware/images/output.png" alt=""
+                             style="width: 600px; margin: 0 auto"
+                             id="imageChange"></div>
+                    <div class="row row-cols-3">
+                        <div class="col-4"></div>
+                        <div class="col-4 text-center"><input type="range" class="input-group-sm" id="myRange" min="0"
+                                                              max="20" value="0">
+                        </div>
+                        <p>Value: <span id="rangeValue"></span></p>
+                    </div>
+                    <div class="col-4"></div>
+
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col">
+                            <div class="row border mb-3">
+                                <iframe class="" src="" height="350px"> Здесь будет сгенерирована 3D модель</iframe>
+                            </div>
+                            <div class="container mb-1">
+                                <div class="row mb-3 border-0">
+                                    <div class="col-11 text-center">
+                                       <button class="btn btn-danger mx-auto" type="submit">
+                                            IN PROGRESS!!
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="row mb-3 ">
+                                <div class="col-11 text-center mr-1">
+                                    <form id="archiveform" class="form-control border-0">
+                                        <button class="btn btn-primary mx-auto" id="archiveButton" type="submit">
+                                            Архивировать
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="row row-cols-3 mb-3">
+                                <form action="{% url 'research' %}" method="post" class="form-control row border-0" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="row row-cols-3 text-center">
+                                        <input class="form-control" type="file" name="images" multiple>Загрузить
+                                        </input>
+                                    </div>
+                                    <div class="row row-cols-3 text-center ">
+                                        <button class="btn btn-primary mx-auto" type="submit">Обработать
+                                        </button>
+                                    </div>
+                                </form>
+                                <form id="reportform"class="form-control row border-0" >
+                                    <div class="row row-cols-3 text-center ">
+                                        <button class="btn btn-primary mx-auto col" id="reportButton" type="submit"
+                                                onclick="">Отчет
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            {#                            <div class="row row-cols-2">#}
+                            {#                                <div class="col">#}
+                            {#                                    <div class="list-group mx-0 w-auto">#}
+                            {#                                        <label class="list-group-item d-flex gap-2">#}
+                            {#                                            <input class="form-check-input flex-shrink-0" type="radio"#}
+                            {#                                                   name="listGroupRadios"#}
+                            {#                                                   id="listGroupRadios1" value="" checked="">#}
+                            {#                                            <span>#}
+                            {#                                            1 изображение#}
+                            {#                                    <small class="d-block text-muted">Экран не будет разделен</small>#}
+                            {#                                    </span>#}
+                            {#                                        </label>#}
+                            {#                                        <label class="list-group-item d-flex gap-2">#}
+                            {#                                            <input class="form-check-input flex-shrink-0" type="radio"#}
+                            {#                                                   name="listGroupRadios"#}
+                            {#                                                   id="listGroupRadios2" value="">#}
+                            {#                                            <span>#}
+                            {#        2 изображения#}
+                            {#        <small class="d-block text-muted">Экран будет разделен на 2 части</small>#}
+                            {#      </span>#}
+                            {#                                        </label>#}
+                            {#                                        <label class="list-group-item d-flex gap-2">#}
+                            {#                                            <input class="form-check-input flex-shrink-0" type="radio"#}
+                            {#                                                   name="listGroupRadios"#}
+                            {#                                                   id="listGroupRadios3" value="">#}
+                            {#                                            <span>#}
+                            {#        4 изображения#}
+                            {#        <small class="d-block text-muted">Экран будет разделен на 4 части</small>#}
+                            {#      </span>#}
+                            {#                                        </label>#}
+                            {#                                    </div>#}
+                            {#                                </div>#}
+                            {#                                <div class="col">#}
+                            {#                                    <div class="list-group mx-0 w-auto">#}
+                            {#                                        <label class="list-group-item d-flex gap-2">#}
+                            {#                                            <input class="form-check-input flex-shrink-0" type="radio"#}
+                            {#                                                   name="listGroupRadios2"#}
+                            {#                                                   id="listGroupRadios1" value="" checked="">#}
+                            {#                                            <span>#}
+                            {#        Без фильтров#}
+                            {#        <small class="d-block text-muted">Картинки без фильтров</small>#}
+                            {#      </span>#}
+                            {#                                        </label>#}
+                            {#                                        <label class="list-group-item d-flex gap-2">#}
+                            {#                                            <input class="form-check-input flex-shrink-0" type="radio"#}
+                            {#                                                   name="listGroupRadios2"#}
+                            {#                                                   id="listGroupRadios2" value="">#}
+                            {#                                            <span>#}
+                            {#        Фильтр 1#}
+                            {#        <small class="d-block text-muted">Применить фильтр 1</small>#}
+                            {#      </span>#}
+                            {#                                        </label>#}
+                            {#                                        <label class="list-group-item d-flex gap-2">#}
+                            {#                                            <input class="form-check-input flex-shrink-0" type="radio"#}
+                            {#                                                   name="listGroupRadios2"#}
+                            {#                                                   id="listGroupRadios3" value="">#}
+                            {#                                            <span>#}
+                            {#        Фильтр 2#}
+                            {#        <small class="d-block text-muted">Применить фильтр 1</small>#}
+                            {#      </span>#}
+                            {##}
+                            {#                                        </label>#}
+                            {#                                    </div>#}
+                            {#                                </div>#}
+                            {#                            </div>#}
+                            {#                        </div>#}
+                            {#                    </div>#}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        let rangevalue = document.getElementById('myRange');
+        let setvalue = document.getElementById("rangeValue");
+        let imgchangevalue = document.getElementById("imageChange");
+        var data = JSON.parse("{{ data|escapejs }}");
+        console.log(data['ima'])
+        rangevalue.oninput = function () {
+            let getValue = rangevalue.value;
+            setvalue.innerHTML = this.value;
+            imgchangevalue.setAttribute("src", data['ima'][getValue])
+        }
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("#archiveform").submit(function () {
+                event.preventDefault();
+                $.ajax({
+                    url: "{% url 'archive' %}",
+                    success: function (){
+                        alert("Архив сформирован")
+                    }
+                })
+            })
+
+        })
+    </script>
+    <script>
+        $(document).ready(function () {
+
+            $("#reportform").submit(function () {
+                event.preventDefault();
+                $.ajax({
+                    url: "{% url 'report' %}",
+                    success: function () {
+                        alert("Отчет сформирован")
+                    }
+                })
+            })
+
+        })
+    </script>
+    </main>
+{% endblock %}

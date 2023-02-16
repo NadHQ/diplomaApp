@@ -1,0 +1,31 @@
+{% extends 'MriSoftware/base.html' %}
+{% load static %}
+
+{% block main %}
+<main class="form-signin w-25 m-auto mt-lg-5">
+{#    <link href="{% static 'MriSoftware/css/signin.css' %}" rel="stylesheet">#}
+
+    <form action="{% url 'start' %}" method="post">
+        <h1 class="h3 mb-3 fw-normal text-center">Заполните данные пациента</h1>
+        {% csrf_token %}
+        <div class="form-floating mb-1">
+            {{ form.name }}
+            <label for="floatingInput">Имя</label>
+        </div>
+        <div class="form-floating mb-1">
+           {{ form.second_name }}
+            <label for="floatingPassword">Фамилия</label>
+        </div>
+        <div class="form-floating mb-1">
+            {{ form.third_name }}
+            <label for="floatingPassword">Отчество</label>
+        </div>
+        <div class="form-floating mb-1">
+            {{ form.pass_number }}
+            <label for="floatingPassword">Номер пасспорта</label>
+        </div>
+
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Заполнить</button>
+    </form>
+</main>
+{% endblock %}

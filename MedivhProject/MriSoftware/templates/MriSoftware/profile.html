@@ -1,0 +1,97 @@
+{% extends 'MriSoftware/base.html' %}
+
+{% block main %}
+    <div class="container">
+        <div class="row row-cols-2 mb-5 mt-5 text-center">
+            <div class="col-4 text-center"><h1>Профиль</h1></div>
+            <div class="col-8"></div>
+
+        </div>
+        <div class="row row-cols-2">
+            <div class="col">
+                <form action="{% url 'profile' %}" method="post">
+                    {% csrf_token %}
+                    <div class="mb-3 row">
+                        <label for="staticEmail" class="col-sm-3 col-form-label">Имя</label>
+                        <div class="col-sm-8 mb-2">
+                            {#                        <input type="text" class="form-control" id="staticEmail" value="Виктор">#}
+                            {{ form.name }}
+                        </div>
+
+                        <label for="inputPassword" class="col-sm-3 col-form-label mb-2">Фамилия</label>
+                        <div class="col-sm-8 mb-2">
+                            {#                            <input type="text" class="form-control" id="inputPassword" value="Драгунов">#}
+                            {{ form.second_name }}
+                        </div>
+
+                        <label for="staticEmail" class="col-sm-3 col-form-label">Отчество</label>
+                        <div class="col-sm-8 mb-2">
+                            {#                            <input type="text" class="form-control" id="staticEmail" value="Дмитриевич">#}
+                            {{ form.third_name }}
+                        </div>
+
+                        <label for="staticEmail" class="col-sm-3 col-form-label">Специальность</label>
+                        <div class="col-sm-8 mb-2">
+                            {#                            <input type="text" class="form-control" id="staticEmail" value="Врач-радиолог">#}
+                            {{ form.profession }}
+                        </div>
+
+                        <label for="staticEmail" class="col-sm-3 col-form-label">Номер лицензии</label>
+                        <div class="col-sm-8 mb-2 ">
+                            {#                            <input type="text" class="form-control form-text" id="staticEmail"#}
+                            {#                                   value="19caf588-ef05-4d53-95f5-c632ad1456d0" readonly>#}
+                            <p class="mt-2">{{ licence_area }}</p>
+
+                        </div>
+
+                        {{ form.licence.as_hidden }}
+
+                    </div>
+                    <div class="mb-3 row">
+                        <div class="col-sm-8 mb-2">
+                            <button type="submit" class="btn btn-primary">Изменить</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="col">
+                <table class="table">
+                    <thead class="table-dark text-center">
+                    <tr>
+                        <th scope="col">Номер пасспорта</th>
+                        <th scope="col">ФИО</th>
+                        <th scope="col">Архив</th>
+                        <th scope="col">Отчет</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for element in data %}
+                        <tr class="text-center">
+
+                            <th scope="row">{{ element.patient.pass_number }}</th>
+                            <td>{{ element.patient.name }} {{ element.patient.second_name }} {{ element.patient.third_name }}</td>
+                            {% if element.file %}
+
+                                <td><a href="{{ element.file.url }}">Скачать</a></td>
+                            {% else %}
+                                <td>Архив отсутствует</td>
+                            {% endif %}
+                            {% if element.report %}
+                                <td class="text-center">
+                                    <a href="{{ element.report.url }}" download>Скачать</a>
+                                </td>
+                            {% else %}
+
+                                <td>Отчет отсутствует</td>
+
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
